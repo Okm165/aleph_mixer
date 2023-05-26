@@ -45,7 +45,11 @@ module.exports = {
             'buttons-secondary-color': '#00ccab',
             'buttons-secondary-hover-color': '#00ccab',
         },
-        extend: {},
+        extend: {
+            fontFamily: {
+                'titillium': ['Titillium Web', 'sans-serif'],
+            }
+        }
     },
     plugins: [],
 }
