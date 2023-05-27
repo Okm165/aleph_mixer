@@ -15,6 +15,7 @@
     "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
+    "@polkadot/api": "^10.7.2",
     "solid-js": "^1.6.10"
   }
 }
