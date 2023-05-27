@@ -1,7 +1,7 @@
 [package]
 name = "aleph_mixer"
 version = "0.1.0"
-authors = ["[your_name] <[your_email]>"]
+authors = ["[Bartosz Nowak] <[bartoszn337@proton.me]>"]
 edition = "2021"
 
 [dependencies]
