@@ -3,14 +3,17 @@ import {Title} from "solid-start";
 export default function Home() {
   return (
     <main>
-      <Title>Aleph Zero Mixer</Title>
+      <Title>Aleph Zero Techno Mixer</Title>
       <div class="min-h-screen flex items-center justify-center bg-night-100">
         <div class="max-w-md w-full space-y-8">
           <div>
             <h1 class="mt-6 text-center text-3xl font-extrabold text-text-night-100">
-              Lorem ipsum
+              Play with your funds
             </h1>
           </div>
+          
+          <button>MIX</button>
+          <button>REMIX</button>
           <form class="mt-8 space-y-6" action="#">
             <input type="hidden" name="remember" value="true"/>
 
