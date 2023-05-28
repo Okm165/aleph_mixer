@@ -30,7 +30,8 @@ mod mixer {
 
         #[ink(message, payable)]
         pub fn deposit(&mut self, hash: String) -> Result<(), Error> {
-            let hash = prefix_hex::decode::<<Sha2x256 as HashOutput>::Type>(hash);
+            let prefix = String::from("0x");
+            let hash = prefix_hex::decode::<<Sha2x256 as HashOutput>::Type>(prefix + hash.as_str());
             if let Ok(hash) = hash {
                 self.balances.insert(hash, &self.env().transferred_value());
                 return Ok(());
@@ -71,7 +72,7 @@ mod mixer {
             let mut mixer = Mixer::new();
             let pass = "dupa".to_string();
             let wrong_pass = "dupa1".to_string();
-            let key = "0x60a5d3e4100fe8afa5ee0103739a45711d50d7f3ba7280d8a95b51f5d04aa4b8".to_string();
+            let key = "60a5d3e4100fe8afa5ee0103739a45711d50d7f3ba7280d8a95b51f5d04aa4b8".to_string();
 
             let accounts = ink::env::test::default_accounts::<ink::env::DefaultEnvironment>();
             let contract = ink::env::account_id::<ink::env::DefaultEnvironment>();
