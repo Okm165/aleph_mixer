@@ -13,12 +13,17 @@ const App: Component = () => {
   const [ amount, setAmount ] = createSignal<number>(0);
 
   onMount(async () => {
-    // await getBalance()
+    await getBalance("dupa");
   })
 
   return (
     <div class='w-screen min-h-screen text-gray-100 [background-image:linear-gradient(180deg,#000033_0%,#00001d_24%,#00001d_76%,#000033_100%)] grid grid-rows-[auto_1fr]'>
-       <div class='font-bold text-xl p-4 border-b-[1px] border-gray-700'>ALEPH MIXER</div>
+       <div class="grid grid-cols-[1fr_auto] p-4 border-b-[1px] border-gray-700 justify-center items-center">
+        <div class='font-bold text-xl'>ALEPH MIXER</div>
+        <div class={`token-linear-wipe-button cursor-pointer rounded-full px-4 py-2 text-center font-lexend font-medium text-text-1`} onClick={() => {
+          
+        }}>ConnectWallet</div>
+       </div>
        <div class="grid justify-center items-center">
         <div class="grid grid-flow-row gap-6 bg-blue-500 bg-opacity-10 backdrop-blur-3xl items-stretch p-8 border-[1px] border-gray-400 rounded-xl w-[500px]">
           <div class="grid grid-cols-2 justify-center items-center gap-5">
