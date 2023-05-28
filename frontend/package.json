@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "@polkadot/api": "^10.7.2",
+    "@polkadot/api-contract": "^10.7.2",
     "solid-js": "^1.6.10"
   }
 }
