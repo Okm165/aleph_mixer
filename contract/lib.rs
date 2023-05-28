@@ -41,6 +41,18 @@ mod mixer {
         }
 
         #[ink(message)]
+        pub fn balance_of(&mut self, pass: String) -> Balance {
+            let mut hash = <Sha2x256 as HashOutput>::Type::default();
+            Sha2x256::hash(&pass.into_bytes(), &mut hash);
+            let balance = self.balances.get(hash.clone());
+            if let Some(balance) = balance {
+                return balance;
+            } else {
+                return 0;
+            }
+        }
+
+        #[ink(message)]
         pub fn withdraw(&mut self, pass: String, amount: Balance) -> Result<(), Error> {
             let mut hash = <Sha2x256 as HashOutput>::Type::default();
             Sha2x256::hash(&pass.into_bytes(), &mut hash);
@@ -80,10 +92,15 @@ mod mixer {
             ink::env::test::set_caller::<ink::env::DefaultEnvironment>(accounts.bob);
             ink::env::test::set_account_balance::<ink::env::DefaultEnvironment>(accounts.bob, 100);
 
+            assert_eq!(mixer.balance_of(pass.clone()), 0);
             assert_eq!(pay_with_call!(mixer.deposit(key), 30) , Ok(()));
+            assert_eq!(mixer.balance_of(pass.clone()), 30);
             assert_eq!(mixer.withdraw(pass.clone(), 10), Ok(()));
+            assert_eq!(mixer.balance_of(pass.clone()), 20);
             assert_eq!(mixer.withdraw(wrong_pass, 10), Err(Error::DepositNotFound));
+            assert_eq!(mixer.balance_of(pass.clone()), 20);
             assert_eq!(mixer.withdraw(pass.clone(), 20), Ok(()));
+            assert_eq!(mixer.balance_of(pass.clone()), 0);
             assert_eq!(mixer.withdraw(pass, 1), Err(Error::InsufficientBalance));
         }
     }
