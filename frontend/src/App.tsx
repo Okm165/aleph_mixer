@@ -1,5 +1,5 @@
-import { Component, createSignal } from 'solid-js';
-import { contract } from './contract';
+import { Component, createSignal, onMount } from 'solid-js';
+import { getBalance, mix, unmix } from './contract';
 
 enum Tab {
   MIX,
@@ -9,6 +9,12 @@ enum Tab {
 const App: Component = () => {
   const [tab, setTab] = createSignal<Tab>(Tab.MIX);
   const [ balance, setBalance ] = createSignal<string>("");
+  const [ data, setData ] = createSignal<string>("");
+  const [ amount, setAmount ] = createSignal<number>(0);
+
+  onMount(async () => {
+    // await getBalance()
+  })
 
   return (
     <div class='w-screen min-h-screen text-gray-100 [background-image:linear-gradient(180deg,#000033_0%,#00001d_24%,#00001d_76%,#000033_100%)] grid grid-rows-[auto_1fr]'>
@@ -24,11 +30,17 @@ const App: Component = () => {
             }}>UNMIX</div>
           </div>
           <div class='grid grid-rows-2 items-stretch gap-4'>
-            <input type='text' placeholder={tab() == Tab.MIX ? "hash" : "password"} class="w-full p-3 border-[1px] border-gray-400 rounded-xl bg-slate-800" />
-            <input type='number' placeholder={"amount"} class="w-full p-3 border-[1px] border-gray-400 rounded-xl bg-slate-800" />
+            <input type='text' placeholder={tab() == Tab.MIX ? "hash" : "password"} class="w-full p-3 border-[1px] border-gray-400 rounded-xl bg-slate-800" onChange={(e) => setData(e.target.value)}/>
+            <input type='number' placeholder={"amount"} class="w-full p-3 border-[1px] border-gray-400 rounded-xl bg-slate-800"  onChange={(e) => setAmount(e.target.valueAsNumber)}/>
           </div>
-          <div class="text-left font-lexend font-medium text-text-1">Balance: {balance()} TZERO</div>
-          <div class="token-linear-wipe-button cursor-pointer rounded-full px-4 py-2 text-center font-lexend font-medium text-text-1">Submit</div>
+          <div class="text-left font-lexend font-medium text-text-1">Balance: {133.13} TZERO</div>
+          <div class="token-linear-wipe-button cursor-pointer rounded-full px-4 py-2 text-center font-lexend font-medium text-text-1" onChange={async () => {
+            if (tab() == Tab.MIX) {
+              await mix(data(), amount());
+            } else {
+              await unmix(data(), amount());
+            }
+          }}>Submit</div>
         </div>
       </div>
     </div>
