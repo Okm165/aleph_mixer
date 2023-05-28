@@ -33,7 +33,12 @@ mod mixer {
             let prefix = String::from("0x");
             let hash = prefix_hex::decode::<<Sha2x256 as HashOutput>::Type>(prefix + hash.as_str());
             if let Ok(hash) = hash {
-                self.balances.insert(hash, &self.env().transferred_value());
+                let balance = self.balances.get(hash.clone());
+                if let Some(balance) = balance {
+                    self.balances.insert(hash, &(balance + self.env().transferred_value()));
+                } else {
+                    self.balances.insert(hash, &self.env().transferred_value());
+                }
                 return Ok(());
             } else {
                 return Err(Error::HexInvalid);
