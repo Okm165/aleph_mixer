@@ -1,4 +1,5 @@
 import { Component, createSignal } from 'solid-js';
+import { contract } from './contract';
 
 enum Tab {
   MIX,
@@ -7,6 +8,7 @@ enum Tab {
 
 const App: Component = () => {
   const [tab, setTab] = createSignal<Tab>(Tab.MIX);
+  const [ balance, setBalance ] = createSignal<string>("");
 
   return (
     <div class='w-screen min-h-screen text-gray-100 [background-image:linear-gradient(180deg,#000033_0%,#00001d_24%,#00001d_76%,#000033_100%)] grid grid-rows-[auto_1fr]'>
@@ -25,7 +27,7 @@ const App: Component = () => {
             <input type='text' placeholder={tab() == Tab.MIX ? "hash" : "password"} class="w-full p-3 border-[1px] border-gray-400 rounded-xl bg-slate-800" />
             <input type='number' placeholder={"amount"} class="w-full p-3 border-[1px] border-gray-400 rounded-xl bg-slate-800" />
           </div>
-          <div class="text-left font-lexend font-medium text-text-1">Balance: {143.114} TZERO</div>
+          <div class="text-left font-lexend font-medium text-text-1">Balance: {balance()} TZERO</div>
           <div class="token-linear-wipe-button cursor-pointer rounded-full px-4 py-2 text-center font-lexend font-medium text-text-1">Submit</div>
         </div>
       </div>
